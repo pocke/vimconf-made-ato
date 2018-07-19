@@ -10,6 +10,7 @@
     font-size: 5rem;
     display: table-cell;
     vertical-align: middle;
+    white-space: pre;
   }
 </style>
 
@@ -19,10 +20,15 @@
 </body>
 
 <script type="text/javascript">
-const now = new Date();
-const vimconfDay = new Date(2018, 11, 24);
-const remaining = Math.ceil((vimconfDay.getTime() - now.getTime()) / (24*60*60*1000));
+const Nov = 10;
+const Aug = 7;
 
-document.querySelector('h1').textContent = `VimConfまであと${remaining}日！`;
+const now = new Date();
+const vimconfDay = new Date(2018, Nov, 24);
+const vimconfCFPDeadline = new Date(2018, Aug, 13);
+const remaining = Math.ceil((vimconfDay - now) / (24*60*60*1000));
+const remainingCFP = Math.ceil((vimconfCFPDeadline - now) / (24*60*60*1000));
+
+document.querySelector('h1').textContent = `VimConfまであと${remaining}日！\nCFP締切まであと${remainingCFP}日！！`;
 </script>
 
