@@ -1,0 +1,28 @@
+<style>
+  body {
+    text-align: center;
+    display: table;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+  h1 {
+    font-size: 5rem;
+    display: table-cell;
+    vertical-align: middle;
+  }
+</style>
+
+<body>
+  <h1>
+  </h1>
+</body>
+
+<script type="text/javascript">
+const now = new Date();
+const vimconfDay = new Date(2018, 11, 24);
+const remaining = Math.ceil((vimconfDay.getTime() - now.getTime()) / (24*60*60*1000));
+
+document.querySelector('h1').textContent = `VimConfまであと${remaining}日！`;
+</script>
+
