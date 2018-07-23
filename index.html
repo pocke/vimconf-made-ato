@@ -6,29 +6,60 @@
     height: 100%;
     margin: 0;
   }
-  h1 {
-    font-size: 5rem;
+  #container {
+    font-size: 3rem;
     display: table-cell;
     vertical-align: middle;
-    white-space: pre;
+  }
+
+  h1 {
+    margin: 0;
   }
 </style>
 
 <body>
-  <h1>
-  </h1>
+  <div id="container">
+  </div>
 </body>
 
 <script type="text/javascript">
+const diff = (now, future) => {
+  const remaining = future - now;
+  const day = Math.floor(remaining / (24*60*60*1000));
+  const hour = Math.floor((remaining - day * 24*60*60*1000) / (60*60*1000));
+  const min = Math.floor((remaining - day * 24*60*60*1000 - hour * 60*60*1000) / (60*1000));
+  const sec = Math.floor((remaining - day * 24*60*60*1000 - hour * 60*60*1000 - min * 60*1000) / 1000);
+  return {day, hour, min, sec};
+};
+
+const render = (now, vimconfDay, vimconfCFPDeadline) => {
+  const remaining = diff(now, vimconfDay);
+
+  const remainingCFP = diff(now, vimconfCFPDeadline)
+
+  return `
+    <h1>
+      <a href="https://vimconf.org/2018/"> 
+        VimConfまであと${remaining.day}日${remaining.hour}時間${remaining.min}分${remaining.sec}秒！
+      </a>
+    </h1>
+    <br />
+    <h1>
+      <a href="https://vim-jp.org/blog/2018/06/28/VimConf2018-cfp-ja.html"> 
+        CFP締切まであと${remainingCFP.day}日${remainingCFP.hour}時間${remainingCFP.min}分${remainingCFP.sec}秒！
+      </a>
+    </h1>
+  `;
+}
+
 const Nov = 10;
 const Aug = 7;
-
-const now = new Date();
 const vimconfDay = new Date(2018, Nov, 24);
 const vimconfCFPDeadline = new Date(2018, Aug, 13);
-const remaining = Math.ceil((vimconfDay - now) / (24*60*60*1000));
-const remainingCFP = Math.ceil((vimconfCFPDeadline - now) / (24*60*60*1000));
 
-document.querySelector('h1').textContent = `VimConfまであと${remaining}日！\nCFP締切まであと${remainingCFP}日！！`;
+setInterval(() => {
+  const now = new Date();
+  document.querySelector('#container').innerHTML = render(now, vimconfDay, vimconfCFPDeadline);
+}, 1000);
 </script>
 
